@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "841282151922",
+    "firebase_url": "https://connecta-e9a34.firebaseio.com",
+    "project_id": "connecta-e9a34",
+    "storage_bucket": "connecta-e9a34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841282151922:android:64add808088c87e3",
+        "android_client_info": {
+          "package_name": "com.example.anish.imagemessagingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "841282151922-9sium5dsr9m2h9e0n3q4th1af5p2hevj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDOKXI3NBHZG8bjeBDxljEZY4p8GLn8c4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
