@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
                                     val intent = Intent(this, SnapsActivity::class.java)
                                     startActivity(intent)
+                                    finish()
 
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -62,6 +63,12 @@ class MainActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.password1EditText)
         incorrectUsernameTextView = findViewById(R.id.incorrectUsernameTextView)
         incorrectPassword1TextView = findViewById(R.id.incorrectPassword1TextView)
+
+        if (mAuth.currentUser != null){
+            val intent = Intent(this, SnapsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     fun validate(email:String, password: String): Boolean{

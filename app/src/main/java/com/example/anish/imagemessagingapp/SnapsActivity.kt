@@ -1,5 +1,6 @@
 package com.example.anish.imagemessagingapp
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -85,6 +86,8 @@ class SnapsActivity : AppCompatActivity() {
                             FirebaseAuth.getInstance().signOut()
                             menuItem.setChecked(true)
                             drawerLayout!!.closeDrawers()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
                             finish()
                         }
                     }
