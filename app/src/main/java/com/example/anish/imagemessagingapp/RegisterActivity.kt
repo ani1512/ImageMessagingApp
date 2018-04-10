@@ -13,7 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-
+import com.google.firebase.database.FirebaseDatabase
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -50,7 +50,9 @@ class RegisterActivity : AppCompatActivity() {
                     passwordEditText?.text.toString())
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-
+                            FirebaseDatabase.getInstance().getReference().child("users").
+                                    child(task.result.user.uid).child("email").
+                                    setValue(emailEditText?.text.toString())
                             signUp()
 
                         } else {
