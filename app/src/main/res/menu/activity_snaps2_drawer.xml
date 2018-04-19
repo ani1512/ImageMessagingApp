@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/toHome2"
+            android:icon="@drawable/ic_action_home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/toSnap2"
+            android:icon="@drawable/ic_action_snaps"
+            android:title="Snap" />
+
+        <item
+            android:id="@+id/toCamera"
+            android:title="Camera"
+            android:icon="@drawable/ic_menu_camera"
+            />
+
+    </group>
+
+    <item android:title="Action">
+        <menu>
+            <item
+                android:id="@+id/logout2"
+                android:icon="@drawable/ic_action_name"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>
