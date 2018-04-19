@@ -3,11 +3,12 @@
     package="com.example.anish.imagemessagingapp">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.hardware.camera2.full" />
+
     <uses-feature
         android:name="android.hardware.camera2"
-        android:required="true"
-        />
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +25,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".SnapsActivity"></activity>
+        <activity android:name=".CameraActivity" />
+        <activity
+            android:name=".SnapsActivity2"
+            android:label="@string/title_activity_snaps2"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".SendActivity" />
     </application>
 
 </manifest>

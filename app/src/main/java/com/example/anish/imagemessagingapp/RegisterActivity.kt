@@ -38,7 +38,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun signUp() {
-        val intent = Intent(this, SnapsActivity::class.java)
+        val intent = Intent(this, SnapsActivity2::class.java)
         startActivity(intent)
     }
 

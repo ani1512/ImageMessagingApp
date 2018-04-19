@@ -1,5 +1,6 @@
 package com.example.anish.imagemessagingapp
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -19,28 +20,31 @@ class MainActivity : AppCompatActivity() {
     internal var passwordEditText: EditText? = null
     internal var incorrectUsernameTextView: TextView? = null
     internal var incorrectPassword1TextView: TextView? = null
+    internal var progressDialog: ProgressDialog? = null
 
     fun registerClick(view: View){
 
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
-
     }
 
     fun logIn(view: View){
 
         if (validate(usernameEditText?.text.toString(), passwordEditText?.text.toString())){
+            progressDialog?.setMessage("Login..")
+            progressDialog?.show()
                 mAuth.signInWithEmailAndPassword(usernameEditText?.text.toString(),
                         passwordEditText?.text.toString())
                         .addOnCompleteListener(this) { task ->
                                 if (task.isSuccessful) {
-
-                                    val intent = Intent(this, SnapsActivity::class.java)
+                                    progressDialog?.dismiss()
+                                    val intent = Intent(this, SnapsActivity2::class.java)
                                     startActivity(intent)
                                     finish()
 
                                 } else {
                                     // If sign in fails, display a message to the user.
+                                    progressDialog?.dismiss()
                                     Log.i("failure", task.exception!!.toString())
                                     Toast.makeText(this@MainActivity,
                                             "Authentication failed.", Toast.LENGTH_SHORT).show()
@@ -63,9 +67,10 @@ class MainActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.password1EditText)
         incorrectUsernameTextView = findViewById(R.id.incorrectUsernameTextView)
         incorrectPassword1TextView = findViewById(R.id.incorrectPassword1TextView)
+        progressDialog = ProgressDialog(this)
 
         if (mAuth.currentUser != null){
-            val intent = Intent(this, SnapsActivity::class.java)
+            val intent = Intent(this, SnapsActivity2::class.java)
             startActivity(intent)
             finish()
         }
