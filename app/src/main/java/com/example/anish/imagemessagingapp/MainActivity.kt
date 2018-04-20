@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     fun logIn(view: View){
 
         if (validate(usernameEditText?.text.toString(), passwordEditText?.text.toString())){
-            progressDialog?.setMessage("Login..")
+            progressDialog?.setMessage("Logging in...")
             progressDialog?.show()
                 mAuth.signInWithEmailAndPassword(usernameEditText?.text.toString(),
                         passwordEditText?.text.toString())
