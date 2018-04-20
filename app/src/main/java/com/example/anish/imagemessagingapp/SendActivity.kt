@@ -1,8 +1,10 @@
 package com.example.anish.imagemessagingapp
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +20,8 @@ import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.OnFailureListener
 import com.example.anish.imagemessagingapp.R.id.imageView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -28,12 +32,19 @@ class SendActivity : AppCompatActivity() {
     var createSnapImageView: ImageView? = null
     var messageEditText: EditText? = null
     val imageName = UUID.randomUUID().toString()+".jpg"
+    var key: String? = null
+    var imageURL: Uri? = null
+    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_send)
 
         createSnapImageView = findViewById(R.id.createSnapImageView)
+        var intent: Intent = getIntent()
+        key = intent.getStringExtra("key")
+        messageEditText = findViewById<EditText>(R.id.messageEditText)
+        progressDialog = ProgressDialog(this)
     }
 
     fun getPhoto(){
@@ -65,6 +76,8 @@ class SendActivity : AppCompatActivity() {
     }
 
     fun sendClicked(view:View){
+        progressDialog?.setMessage("Sending...")
+        progressDialog?.show()
         createSnapImageView?.setDrawingCacheEnabled(true)
         createSnapImageView?.buildDrawingCache()
         val bitmap = createSnapImageView?.getDrawingCache()
@@ -79,10 +92,28 @@ class SendActivity : AppCompatActivity() {
         uploadTask.addOnFailureListener(OnFailureListener {
             Toast.makeText(this, "Upload Failed!", Toast.LENGTH_SHORT).show()
         }).addOnSuccessListener(OnSuccessListener<UploadTask.TaskSnapshot> { taskSnapshot ->
-            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-            val downloadUrl = taskSnapshot.downloadUrl
-            Log.i("url", downloadUrl.toString())
+            // taskSnapshot.getMetadata() contains file metadata such as size, content-type,
+            // and download URL.
+            progressDialog?.dismiss()
+            imageURL = taskSnapshot.downloadUrl
+            val snapMap: Map<String, String> = mapOf(
+                    "from" to FirebaseAuth.getInstance().currentUser!!.email!!,
+                    "imageName" to imageName,
+                    "imageURL" to imageURL!!.toString(),
+                    "message" to messageEditText?.text.toString())
+
+            FirebaseDatabase.getInstance().getReference().child("users").child(key)
+                    .child("snaps").push().setValue(snapMap)
+
+
+
+            Toast.makeText(this, "Snap successfully sent!", Toast.LENGTH_SHORT).show()
+
+            var intent = Intent(this, SnapsActivity2::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
         })
+
     }
 }
 

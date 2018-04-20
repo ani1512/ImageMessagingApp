@@ -65,7 +65,6 @@ class SnapsActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         listAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,
                 emails)
         userList?.adapter = listAdapter
-        var key:String? = null
 
         FirebaseDatabase.getInstance().getReference().child("users")
                 .addChildEventListener(object : ChildEventListener {
@@ -76,8 +75,8 @@ class SnapsActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
                         var email = p0?.child("email")?.value as String
                         emails!!.add(email)
-                        Log.i("emails", emails.toString())
                         keys!!.add(p0.key)
+                        Log.i("Key", keys.toString())
                         listAdapter!!.notifyDataSetChanged()
                     }
                 })
@@ -85,7 +84,7 @@ class SnapsActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         userList?.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
 
             var intent: Intent = Intent(this, SendActivity::class.java)
-            intent.putExtra(key, keys!!.get(position))
+            intent.putExtra("key", keys!!.get(position))
             startActivity(intent)
         }
 
