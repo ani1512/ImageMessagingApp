@@ -31,6 +31,8 @@
             android:label="@string/title_activity_snaps2"
             android:theme="@style/AppTheme" />
         <activity android:name=".SendActivity" />
+        <activity android:name=".ReceiveActivity" />
+        <activity android:name=".ViewSnapActivity"></activity>
     </application>
 
 </manifest>
